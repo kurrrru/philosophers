@@ -6,14 +6,14 @@
 /*   By: nkawaguc <nkawaguc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 23:15:49 by nkawaguc          #+#    #+#             */
-/*   Updated: 2024/12/09 00:14:55 by nkawaguc         ###   ########.fr       */
+/*   Updated: 2024/12/09 00:27:02 by nkawaguc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
 static bool	is_any_invalid_char(char **arg);
-static bool	is_any_non_positive(t_philo *philo);
+static bool	is_any_non_positive(t_philo *philo, int argc);
 
 int	process_input(int argc, char **argv, t_philo *philo)
 {
@@ -29,7 +29,7 @@ int	process_input(int argc, char **argv, t_philo *philo)
 		philo->config.min_meal = ft_atoi(argv[5]);
 	else
 		philo->config.min_meal = -1;
-	if (is_any_non_positive(philo))
+	if (is_any_non_positive(philo, argc))
 		return (printf("Error: non-positive argument\n"), ERROR);
 	return (SUCCESS);
 }
@@ -47,6 +47,8 @@ static bool	is_any_invalid_char(char **arg)
 			j++;
 		if (arg[i][j] == '+' || arg[i][j] == '-')
 			j++;
+		if (!ft_isdigit(arg[i][j]))
+			return (true);
 		while (ft_isdigit(arg[i][j]))
 			j++;
 		if (arg[i][j])
@@ -56,7 +58,7 @@ static bool	is_any_invalid_char(char **arg)
 	return (false);
 }
 
-static bool	is_any_non_positive(t_philo *philo)
+static bool	is_any_non_positive(t_philo *philo, int argc)
 {
 	if (philo->config.num_philo <= 0)
 		return (true);
@@ -66,7 +68,7 @@ static bool	is_any_non_positive(t_philo *philo)
 		return (true);
 	if (philo->config.time_to_sleep <= 0)
 		return (true);
-	if (philo->config.min_meal < 0)
+	if (argc == 6 && philo->config.min_meal <= 0)
 		return (true);
 	return (false);
 }
