@@ -6,7 +6,7 @@
 /*   By: nkawaguc <nkawaguc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 20:47:04 by nkawaguc          #+#    #+#             */
-/*   Updated: 2024/12/12 17:23:25 by nkawaguc         ###   ########.fr       */
+/*   Updated: 2024/12/12 17:33:49 by nkawaguc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_person
 	int			id;
 	bool		*end;
 	int			meal_cnt;
+	int			*min_meal_cnt;
 	long		last_meal;
 	pthread_t	thread;
 	pthread_mutex_t	*left_fork;
@@ -52,6 +53,7 @@ typedef struct s_philo
 {
 	t_config		config;
 	bool			end;
+	int				min_meal_cnt;
 	t_person		*persons;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	msg_mutex;

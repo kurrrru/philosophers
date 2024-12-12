@@ -6,7 +6,7 @@
 /*   By: nkawaguc <nkawaguc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:26:57 by nkawaguc          #+#    #+#             */
-/*   Updated: 2024/12/12 17:23:16 by nkawaguc         ###   ########.fr       */
+/*   Updated: 2024/12/12 17:33:55 by nkawaguc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	init_philo(t_philo *philo)
 	int	i;
 
 	philo->end = false;
+	philo->min_meal_cnt = 0;
 	philo->forks = malloc(sizeof(pthread_mutex_t) * philo->config.num_philo);
 	philo->persons = malloc(sizeof(t_person) * philo->config.num_philo);
 	if (philo->forks == NULL || philo->persons == NULL)
@@ -43,6 +44,7 @@ static void	init_person(t_philo *philo, int i)
 	person->config = philo->config;
 	person->id = i + 1;
 	person->end = &philo->end;
+	person->min_meal_cnt = &philo->min_meal_cnt;
 	person->meal_cnt = 0;
 	person->last_meal = 0;
 	person->right_fork = &philo->forks[i];

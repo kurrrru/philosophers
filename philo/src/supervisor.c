@@ -6,7 +6,7 @@
 /*   By: nkawaguc <nkawaguc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 15:13:21 by nkawaguc          #+#    #+#             */
-/*   Updated: 2024/12/12 17:15:07 by nkawaguc         ###   ########.fr       */
+/*   Updated: 2024/12/12 17:37:12 by nkawaguc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,10 @@ void	*supervisor(void *p)
 			if (philo->persons[i].meal_cnt < min_meal_cnt)
 				min_meal_cnt = philo->persons[i].meal_cnt;
 		}
-		if (min_meal_cnt >= philo->config.min_meal && philo->config.min_meal != -1)
-		{
-			pthread_mutex_lock(&philo->end_mutex);
-			philo->end = true;
-			pthread_mutex_unlock(&philo->end_mutex);
-			break ;
-		}
-		usleep(100);
+		pthread_mutex_lock(&philo->meal_mutex);
+		philo->min_meal_cnt = min_meal_cnt;
+		pthread_mutex_unlock(&philo->meal_mutex);
+		usleep(50);
 	}
 	return (NULL);
 }
