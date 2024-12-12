@@ -6,13 +6,14 @@
 /*   By: nkawaguc <nkawaguc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 22:22:41 by nkawaguc          #+#    #+#             */
-/*   Updated: 2024/12/12 17:10:17 by nkawaguc         ###   ########.fr       */
+/*   Updated: 2024/12/12 18:12:10 by nkawaguc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-void	state_message(long time, int philo_id, t_msg_type msg_type, t_person *person)
+void	state_message(long time, int philo_id,
+			t_msg_type msg_type, t_person *person)
 {
 	const char	*msg[] = {
 	[msg_fork] = "has taken a fork",

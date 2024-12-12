@@ -6,7 +6,7 @@
 /*   By: nkawaguc <nkawaguc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 20:47:04 by nkawaguc          #+#    #+#             */
-/*   Updated: 2024/12/12 17:33:49 by nkawaguc         ###   ########.fr       */
+/*   Updated: 2024/12/12 18:13:11 by nkawaguc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ typedef struct s_config
 
 typedef struct s_person
 {
-	t_config	config;
-	int			id;
-	bool		*end;
-	int			meal_cnt;
-	int			*min_meal_cnt;
-	long		last_meal;
-	pthread_t	thread;
+	t_config		config;
+	int				id;
+	bool			*end;
+	int				meal_cnt;
+	int				*min_meal_cnt;
+	long			last_meal;
+	pthread_t		thread;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*msg_mutex;
