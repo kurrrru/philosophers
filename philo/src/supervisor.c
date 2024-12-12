@@ -6,7 +6,7 @@
 /*   By: nkawaguc <nkawaguc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 15:13:21 by nkawaguc          #+#    #+#             */
-/*   Updated: 2024/12/12 18:22:40 by nkawaguc         ###   ########.fr       */
+/*   Updated: 2024/12/12 21:43:42 by nkawaguc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	*supervisor(void *p)
 		pthread_mutex_lock(&philo->meal_mutex);
 		philo->min_meal_cnt = min_meal_cnt;
 		pthread_mutex_unlock(&philo->meal_mutex);
-		usleep(100);
+		usleep(50);
 	}
 	return (NULL);
 }

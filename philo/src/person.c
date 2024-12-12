@@ -6,7 +6,7 @@
 /*   By: nkawaguc <nkawaguc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:46:23 by nkawaguc          #+#    #+#             */
-/*   Updated: 2024/12/12 17:38:51 by nkawaguc         ###   ########.fr       */
+/*   Updated: 2024/12/12 22:27:08 by nkawaguc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ static void	take_forks(t_person *person)
 {
 	if (person->id % 2 == 0)
 	{
-		usleep(200);
+		if (person->meal_cnt == 0)
+			usleep(200);
 		pthread_mutex_lock(person->right_fork);
 		state_message(getms(), person->id, msg_fork, person);
 		pthread_mutex_lock(person->left_fork);
@@ -57,7 +58,6 @@ static void	take_forks(t_person *person)
 	{
 		pthread_mutex_lock(person->left_fork);
 		state_message(getms(), person->id, msg_fork, person);
-		usleep(200);
 		pthread_mutex_lock(person->right_fork);
 		state_message(getms(), person->id, msg_fork, person);
 	}
@@ -90,9 +90,9 @@ static void	wait_person(t_person *person, long duration)
 		now = getms();
 		if (now - person->last_meal >= person->config.time_to_die)
 		{
-			state_message(now, person->id, msg_die, person);
+			state_message(getms(), person->id, msg_die, person);
 			pthread_mutex_lock(person->end_mutex);
-			*person->end = true;
+			*(person->end) = true;
 			pthread_mutex_unlock(person->end_mutex);
 			break ;
 		}

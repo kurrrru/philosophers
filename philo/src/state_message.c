@@ -6,7 +6,7 @@
 /*   By: nkawaguc <nkawaguc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 22:22:41 by nkawaguc          #+#    #+#             */
-/*   Updated: 2024/12/12 18:12:10 by nkawaguc         ###   ########.fr       */
+/*   Updated: 2024/12/12 22:32:45 by nkawaguc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,11 @@ void	state_message(long time, int philo_id,
 	pthread_mutex_lock(person->msg_mutex);
 	if (!end_status(NULL, person))
 		printf("%16ld %d %s\n", time, philo_id, msg[msg_type]);
+	if (msg_type == msg_die)
+	{
+		pthread_mutex_lock(person->end_mutex);
+		*person->end = true;
+		pthread_mutex_unlock(person->end_mutex);
+	}
 	pthread_mutex_unlock(person->msg_mutex);
 }
