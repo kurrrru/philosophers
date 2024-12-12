@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   include.h                                          :+:      :+:    :+:   */
+/*   getms.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkawaguc <nkawaguc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/08 20:46:03 by nkawaguc          #+#    #+#             */
-/*   Updated: 2024/12/12 14:55:33 by nkawaguc         ###   ########.fr       */
+/*   Created: 2024/12/12 13:48:49 by nkawaguc          #+#    #+#             */
+/*   Updated: 2024/12/12 13:49:00 by nkawaguc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INCLUDE_H
-# define INCLUDE_H
+#include "../include/philo.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <sys/time.h>
-# include <stdbool.h>
-# include <limits.h>
-# include <pthread.h>
-# include <string.h>
+long	getms(void)
+{
+	struct timeval	tv;
 
-#endif
+	gettimeofday(&tv, NULL);
+	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+}

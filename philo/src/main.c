@@ -6,7 +6,7 @@
 /*   By: nkawaguc <nkawaguc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 23:15:04 by nkawaguc          #+#    #+#             */
-/*   Updated: 2024/12/09 00:50:49 by nkawaguc         ###   ########.fr       */
+/*   Updated: 2024/12/12 15:28:39 by nkawaguc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,9 @@ int	main(int argc, char **argv)
 
 	if (process_input(argc, argv, &philo) == ERROR)
 		return (ERROR);
+	if (init_philo(&philo) == ERROR)
+		return (ERROR);
+	launch(&philo);
+	terminate_philo(&philo);
 	return (0);
 }

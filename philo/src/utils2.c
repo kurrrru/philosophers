@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   include.h                                          :+:      :+:    :+:   */
+/*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkawaguc <nkawaguc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/08 20:46:03 by nkawaguc          #+#    #+#             */
-/*   Updated: 2024/12/12 14:55:33 by nkawaguc         ###   ########.fr       */
+/*   Created: 2024/12/12 15:54:34 by nkawaguc          #+#    #+#             */
+/*   Updated: 2024/12/12 15:57:15 by nkawaguc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INCLUDE_H
-# define INCLUDE_H
+#include "../include/philo.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <sys/time.h>
-# include <stdbool.h>
-# include <limits.h>
-# include <pthread.h>
-# include <string.h>
+bool	end_status(t_philo *philo, t_person *person)
+{
+	bool	end;
 
-#endif
+	if (philo)
+	{
+		pthread_mutex_lock(&philo->end_mutex);
+		end = philo->end;
+		pthread_mutex_unlock(&philo->end_mutex);
+	}
+	else
+	{
+		pthread_mutex_lock(person->end_mutex);
+		end = *person->end;
+		pthread_mutex_unlock(person->end_mutex);
+	}
+	return (end);
+}

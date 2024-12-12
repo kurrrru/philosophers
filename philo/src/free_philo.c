@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   include.h                                          :+:      :+:    :+:   */
+/*   free_philo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkawaguc <nkawaguc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/08 20:46:03 by nkawaguc          #+#    #+#             */
-/*   Updated: 2024/12/12 14:55:33 by nkawaguc         ###   ########.fr       */
+/*   Created: 2024/12/12 11:23:29 by nkawaguc          #+#    #+#             */
+/*   Updated: 2024/12/12 14:53:54 by nkawaguc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INCLUDE_H
-# define INCLUDE_H
+#include "../include/philo.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <sys/time.h>
-# include <stdbool.h>
-# include <limits.h>
-# include <pthread.h>
-# include <string.h>
+void	terminate_philo(t_philo *philo)
+{
+	int	i;
 
-#endif
+	i = -1;
+	while (++i < philo->config.num_philo)
+		pthread_mutex_destroy(&philo->forks[i]);
+	pthread_mutex_destroy(&philo->msg_mutex);
+	pthread_mutex_destroy(&philo->end_mutex);
+	pthread_mutex_destroy(&philo->meal_mutex);
+	free(philo->forks);
+	free(philo->persons);
+}
