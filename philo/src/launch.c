@@ -6,7 +6,7 @@
 /*   By: nkawaguc <nkawaguc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 15:26:51 by nkawaguc          #+#    #+#             */
-/*   Updated: 2024/12/12 18:11:54 by nkawaguc         ###   ########.fr       */
+/*   Updated: 2024/12/13 00:52:10 by nkawaguc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,7 @@ void	launch(t_philo *philo)
 
 static void	single_person(t_philo *philo)
 {
-	long	time;
-
-	time = getms();
-	state_message(time, 1, msg_fork, &philo->persons[0]);
+	state_message(1, msg_fork, &philo->persons[0]);
 	usleep(philo->config.time_to_die * 1000);
-	state_message(time + philo->config.time_to_die, 1, msg_die,
-		&philo->persons[0]);
+	state_message(1, msg_die, &philo->persons[0]);
 }

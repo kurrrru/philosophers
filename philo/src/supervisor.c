@@ -6,7 +6,7 @@
 /*   By: nkawaguc <nkawaguc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 15:13:21 by nkawaguc          #+#    #+#             */
-/*   Updated: 2024/12/12 21:43:42 by nkawaguc         ###   ########.fr       */
+/*   Updated: 2024/12/13 00:52:50 by nkawaguc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	*supervisor(void *p)
 
 static void	die_to_starvation(t_philo *philo, int i)
 {
-	state_message(getms(), i + 1, msg_die, &philo->persons[i]);
+	state_message(i + 1, msg_die, &philo->persons[i]);
 	pthread_mutex_lock(&philo->end_mutex);
 	philo->end = true;
 	pthread_mutex_unlock(&philo->end_mutex);

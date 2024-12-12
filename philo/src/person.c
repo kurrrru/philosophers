@@ -6,7 +6,7 @@
 /*   By: nkawaguc <nkawaguc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:46:23 by nkawaguc          #+#    #+#             */
-/*   Updated: 2024/12/12 22:27:08 by nkawaguc         ###   ########.fr       */
+/*   Updated: 2024/12/13 00:52:51 by nkawaguc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	*person(void *p)
 		sleep_person(person);
 		if (end_status(NULL, person))
 			break ;
-		state_message(getms(), person->id, msg_think, person);
+		state_message(person->id, msg_think, person);
 	}
 	return (NULL);
 }
@@ -50,22 +50,22 @@ static void	take_forks(t_person *person)
 		if (person->meal_cnt == 0)
 			usleep(200);
 		pthread_mutex_lock(person->right_fork);
-		state_message(getms(), person->id, msg_fork, person);
+		state_message(person->id, msg_fork, person);
 		pthread_mutex_lock(person->left_fork);
-		state_message(getms(), person->id, msg_fork, person);
+		state_message(person->id, msg_fork, person);
 	}
 	else
 	{
 		pthread_mutex_lock(person->left_fork);
-		state_message(getms(), person->id, msg_fork, person);
+		state_message(person->id, msg_fork, person);
 		pthread_mutex_lock(person->right_fork);
-		state_message(getms(), person->id, msg_fork, person);
+		state_message(person->id, msg_fork, person);
 	}
 }
 
 static void	eat_spaghetti(t_person *person)
 {
-	state_message(getms(), person->id, msg_eat, person);
+	state_message(person->id, msg_eat, person);
 	pthread_mutex_lock(person->end_mutex);
 	pthread_mutex_lock(person->meal_mutex);
 	person->meal_cnt++;
@@ -90,7 +90,7 @@ static void	wait_person(t_person *person, long duration)
 		now = getms();
 		if (now - person->last_meal >= person->config.time_to_die)
 		{
-			state_message(getms(), person->id, msg_die, person);
+			state_message(person->id, msg_die, person);
 			pthread_mutex_lock(person->end_mutex);
 			*(person->end) = true;
 			pthread_mutex_unlock(person->end_mutex);
@@ -104,6 +104,6 @@ static void	wait_person(t_person *person, long duration)
 
 static void	sleep_person(t_person *person)
 {
-	state_message(getms(), person->id, msg_sleep, person);
+	state_message(person->id, msg_sleep, person);
 	wait_person(person, person->config.time_to_sleep);
 }

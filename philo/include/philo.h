@@ -6,7 +6,7 @@
 /*   By: nkawaguc <nkawaguc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 20:46:35 by nkawaguc          #+#    #+#             */
-/*   Updated: 2024/12/12 18:11:18 by nkawaguc         ###   ########.fr       */
+/*   Updated: 2024/12/13 00:51:25 by nkawaguc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ void	*supervisor(void *p);
 
 // === utils ===
 // state_message.c
-void	state_message(long time, int philo_id,
-			t_msg_type msg_type, t_person *person);
+void	state_message(int philo_id, t_msg_type msg_type, t_person *person);
 // getms.c
 long	getms(void);
 // util1.c
