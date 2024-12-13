@@ -6,7 +6,7 @@
 /*   By: nkawaguc <nkawaguc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 00:45:55 by nkawaguc          #+#    #+#             */
-/*   Updated: 2024/12/09 00:50:52 by nkawaguc         ###   ########.fr       */
+/*   Updated: 2024/12/13 21:47:14 by nkawaguc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static bool	is_any_invalid_char(char **arg);
 static bool	is_any_non_positive(t_philo *philo, int argc);
+static bool	is_any_out_of_range(t_philo *philo);
 
 int	process_input(int argc, char **argv, t_philo *philo)
 {
@@ -31,6 +32,8 @@ int	process_input(int argc, char **argv, t_philo *philo)
 		philo->config.min_meal = -1;
 	if (is_any_non_positive(philo, argc))
 		return (printf("Error: non-positive argument\n"), ERROR);
+	if (is_any_out_of_range(philo))
+		return (ERROR);
 	return (SUCCESS);
 }
 
@@ -70,5 +73,30 @@ static bool	is_any_non_positive(t_philo *philo, int argc)
 		return (true);
 	if (argc == 6 && philo->config.min_meal <= 0)
 		return (true);
+	return (false);
+}
+
+static bool	is_any_out_of_range(t_philo *philo)
+{
+	if (philo->config.num_philo > 200)
+	{
+		printf("Error: too many philosophers\n");
+		return (true);
+	}
+	if (philo->config.time_to_die < 60)
+	{
+		printf("Error: too short time to die\n");
+		return (true);
+	}
+	if (philo->config.time_to_eat < 60)
+	{
+		printf("Error: too short time to eat\n");
+		return (true);
+	}
+	if (philo->config.time_to_sleep < 60)
+	{
+		printf("Error: too short time to sleep\n");
+		return (true);
+	}
 	return (false);
 }
