@@ -6,7 +6,7 @@
 /*   By: nkawaguc <nkawaguc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 20:46:35 by nkawaguc          #+#    #+#             */
-/*   Updated: 2024/12/13 00:51:25 by nkawaguc         ###   ########.fr       */
+/*   Updated: 2024/12/13 11:07:44 by nkawaguc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	terminate_philo(t_philo *philo);
 // launch.c
 void	launch(t_philo *philo);
 // person.c
-void	*person(void *p);
+void	*person_work(void *p);
 // supervisor.c
 void	*supervisor(void *p);
 

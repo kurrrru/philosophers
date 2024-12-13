@@ -6,7 +6,7 @@
 /*   By: nkawaguc <nkawaguc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:46:23 by nkawaguc          #+#    #+#             */
-/*   Updated: 2024/12/13 10:46:58 by nkawaguc         ###   ########.fr       */
+/*   Updated: 2024/12/13 11:54:12 by nkawaguc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,21 @@ static void	eat_spaghetti(t_person *person);
 static void	wait_person(t_person *person, long duration);
 static void	sleep_person(t_person *person);
 
-void	*person(void *p)
+void	*person_work(void *p)
 {
 	t_person	*person;
 
 	person = (t_person *)p;
+	pthread_mutex_lock(person->meal_mutex);
 	person->last_meal = getms();
+	pthread_mutex_unlock(person->meal_mutex);
+	if (person->id % 2 == 0)
+		usleep(5000 - (getms() - person->last_meal));
 	while (!end_status(NULL, person))
 	{
 		take_forks(person);
-		if (end_status(NULL, person))
-		{
-			pthread_mutex_unlock(person->right_fork);
-			pthread_mutex_unlock(person->left_fork);
-			break ;
-		}
 		eat_spaghetti(person);
-		if (end_status(NULL, person))
-			break ;
 		sleep_person(person);
-		if (end_status(NULL, person))
-			break ;
 		state_message(person->id, msg_think, person);
 	}
 	return (NULL);
@@ -64,14 +58,16 @@ static void	take_forks(t_person *person)
 static void	eat_spaghetti(t_person *person)
 {
 	state_message(person->id, msg_eat, person);
-	pthread_mutex_lock(person->end_mutex);
 	pthread_mutex_lock(person->meal_mutex);
 	person->meal_cnt++;
 	person->last_meal = getms();
 	pthread_mutex_unlock(person->meal_mutex);
 	if (*person->min_meal_cnt == person->config.min_meal)
+	{
+		pthread_mutex_lock(person->end_mutex);
 		*person->end = true;
-	pthread_mutex_unlock(person->end_mutex);
+		pthread_mutex_unlock(person->end_mutex);
+	}
 	wait_person(person, person->config.time_to_eat);
 	pthread_mutex_unlock(person->right_fork);
 	pthread_mutex_unlock(person->left_fork);
