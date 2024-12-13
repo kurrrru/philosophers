@@ -6,7 +6,7 @@
 /*   By: nkawaguc <nkawaguc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:46:23 by nkawaguc          #+#    #+#             */
-/*   Updated: 2024/12/13 00:52:51 by nkawaguc         ###   ########.fr       */
+/*   Updated: 2024/12/13 10:46:58 by nkawaguc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ static void	take_forks(t_person *person)
 {
 	if (person->id % 2 == 0)
 	{
-		if (person->meal_cnt == 0)
-			usleep(200);
 		pthread_mutex_lock(person->right_fork);
 		state_message(person->id, msg_fork, person);
 		pthread_mutex_lock(person->left_fork);
@@ -69,11 +67,11 @@ static void	eat_spaghetti(t_person *person)
 	pthread_mutex_lock(person->end_mutex);
 	pthread_mutex_lock(person->meal_mutex);
 	person->meal_cnt++;
+	person->last_meal = getms();
 	pthread_mutex_unlock(person->meal_mutex);
 	if (*person->min_meal_cnt == person->config.min_meal)
 		*person->end = true;
 	pthread_mutex_unlock(person->end_mutex);
-	person->last_meal = getms();
 	wait_person(person, person->config.time_to_eat);
 	pthread_mutex_unlock(person->right_fork);
 	pthread_mutex_unlock(person->left_fork);

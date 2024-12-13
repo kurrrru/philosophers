@@ -6,7 +6,7 @@
 /*   By: nkawaguc <nkawaguc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 15:13:21 by nkawaguc          #+#    #+#             */
-/*   Updated: 2024/12/13 00:52:50 by nkawaguc         ###   ########.fr       */
+/*   Updated: 2024/12/13 10:28:39 by nkawaguc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	*supervisor(void *p)
 		i = -1;
 		while (++i < philo->config.num_philo)
 		{
-			if (philo->config.time_to_die
+			if (philo->persons[i].last_meal && philo->config.time_to_die
 				< getms() - philo->persons[i].last_meal)
 				return (die_to_starvation(philo, i), NULL);
 			if (philo->persons[i].last_meal
@@ -37,7 +37,7 @@ void	*supervisor(void *p)
 		pthread_mutex_lock(&philo->meal_mutex);
 		philo->min_meal_cnt = min_meal_cnt;
 		pthread_mutex_unlock(&philo->meal_mutex);
-		usleep(50);
+		usleep(100);
 	}
 	return (NULL);
 }
