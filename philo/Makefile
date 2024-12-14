@@ -14,7 +14,7 @@ FILE_NAME	=	free_philo.c \
 				util1.c \
 				util2.c
 
-SRCS		=	$(wildcard src/*.c)
+SRCS		=	$(addprefix src/, $(FILE_NAME))
 
 # Object files
 OBJS		=	$(SRCS:.c=.o)
