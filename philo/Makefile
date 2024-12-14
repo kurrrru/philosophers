@@ -25,7 +25,7 @@ CC			=	cc
 # Flags (philo)
 CFLAGS		=	-Wall -Wextra -Werror
 LFALGS		=	-Wall -Wextra -Werror
-SANITIZE	=	-fsanitize=address
+DEBUG		=	-g -fsanitize=thread
 
 ifeq ($(filter debug,$(MAKECMDGOALS)),debug)
 	CFLAGS	+=	$(DEBUG)
