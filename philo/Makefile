@@ -2,6 +2,18 @@
 NAME		=	philo
 
 # Source files
+FILE_NAME	=	free_philo.c \
+				getms.c \
+				init_philo.c \
+				launch.c \
+				main.c \
+				person.c \
+				process_input.c \
+				state_message.c \
+				supervisor.c \
+				util1.c \
+				util2.c
+
 SRCS		=	$(wildcard src/*.c)
 
 # Object files
